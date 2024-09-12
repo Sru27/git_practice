@@ -17,6 +17,7 @@ port = 1521
 service_name = 'ORCL'
 jdbcUrl = f"jdbc:oracle:thin:@{server}:{port}:{service_name}"
 jdbcDriver = "oracle.jdbc.driver.OracleDriver"
+print("helo")
  
 # Create a data frame by reading data from Oracle via JDBC
 jdbcDF = spark.read.format("jdbc") \
