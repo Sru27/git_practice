@@ -1,0 +1,29 @@
+from pyspark.sql import SparkSession
+ 
+appName = "PySpark Example - Oracle Example"
+master = "local"
+# Create Spark session
+spark = SparkSession.builder \
+    .appName(appName) \
+    .master(master) \
+    .getOrCreate()
+ 
+sql = "select * from myschema.mytable"
+user = "username"
+password = "userpassword"
+# Change this to your Oracle's details accordingly
+server = "oraclesever"
+port = 1521
+service_name = 'ORCL'
+jdbcUrl = f"jdbc:oracle:thin:@{server}:{port}:{service_name}"
+jdbcDriver = "oracle.jdbc.driver.OracleDriver"
+ 
+# Create a data frame by reading data from Oracle via JDBC
+jdbcDF = spark.read.format("jdbc") \
+    .option("url", jdbcUrl) \
+    .option("query", sql) \
+    .option("user", user) \
+    .option("password", password) \
+    .option("driver", jdbcDriver) \
+    .load()
+ 
